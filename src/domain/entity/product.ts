@@ -2,7 +2,7 @@ export default class Product {
     private _id: string;
     private _name: string;
     private _price: number;
-    
+
     constructor(id: string, name: string, price: number) {
         this._id = id;
         this._name = name;
@@ -11,14 +11,16 @@ export default class Product {
     }
 
     validate() {
-        if(!this._id) throw new Error("Id is required");
+        if (!this._id) throw new Error("Id is required");
 
-        if(this._name.length === 0) throw new Error("Name is required");
+        if (this._name.length === 0) throw new Error("Name is required");
 
-        if(this._price < 0) throw new Error("Price is must be greater than 0");
+        if (this._price < 0) throw new Error("Price is must be greater than 0");
 
         return true;
     }
+
+    get id() { return this._id; }
 
     changeName(name: string) {
         this._name = name;
