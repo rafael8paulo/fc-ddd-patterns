@@ -90,6 +90,4 @@ describe("Product repository test", () => {
         expect(products).toEqual(foundProduct);
     });
 
-
-
 });
