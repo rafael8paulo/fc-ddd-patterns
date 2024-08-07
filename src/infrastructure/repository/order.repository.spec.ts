@@ -82,29 +82,22 @@ describe("Order repository test", () => {
     })
 
     it("should update order", async () => {
-
+        const orderRepository = new OrderRepository();
         const customerRepository = new CustomerRepository();
+        const productRepository = new ProductRepository();
+
         const customer = new Customer("123", "Customer 1");
         const address = new Address("Street 1", 1, "Zipcode 1", "City 1");
         customer.changeAddress(address);
         await customerRepository.create(customer);
-
-        const productRepository = new ProductRepository();
         const product = new Product("123", "Product 1", 10);
         productRepository.create(product);
-
         const orderItem = new OrderItem("1", product.name, product.price, 2, product.id);
-
-        let order = new Order("123", "123", [orderItem])
-
-        const orderRepository = new OrderRepository();
+        const order = new Order("123", "123", [orderItem])
         await orderRepository.create(order);
 
-        const customer2 = new Customer("456", "Customer 456");
-        customer2.changeAddress(address);
-        customerRepository.create(customer2);
-
-        order.changeCustomerId("456");
+        const orderItem2 = new OrderItem("2", product.name, product.price, 1, product.id);
+        order.items.push(orderItem2);
         orderRepository.update(order);
 
         const orderModel = await OrderModel.findOne({
@@ -112,11 +105,11 @@ describe("Order repository test", () => {
                 id: order.id,
             },
             include: ["items"]
-        })
+        });
 
         expect(orderModel.toJSON()).toStrictEqual({
             id: "123",
-            customer_id: customer2.id,
+            customer_id: customer.id,
             total: order.total(),
             items: [
                 {
@@ -124,6 +117,14 @@ describe("Order repository test", () => {
                     name: orderItem.name,
                     price: orderItem.price,
                     quantity: orderItem.quantity,
+                    order_id: "123",
+                    product_id: "123",
+                },
+                {
+                    id: orderItem2.id,
+                    name: orderItem2.name,
+                    price: orderItem2.price,
+                    quantity: orderItem2.quantity,
                     order_id: "123",
                     product_id: "123",
                 },
