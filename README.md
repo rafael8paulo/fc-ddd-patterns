@@ -1,10 +1,15 @@
 # fc-ddd-patterns
 
-## Install dependencies
+Projeto realizado no curso Full Cycle, no modulo pratico de DDD.
+
+## Instalar as dependencias
+
 ```shell
 npm install
 ```
-## Run project
+
+## Iniciar o projeto
+
 ```shell
 npm start
 ```
