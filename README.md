@@ -1,6 +1,6 @@
 # fc-ddd-patterns
 
-Projeto realizado no curso Full Cycle, no modulo pratico de DDD.
+Projeto realizado no curso Full Cycle, no módulo prático de DDD.
 
 ## Instalar as dependencias
 
